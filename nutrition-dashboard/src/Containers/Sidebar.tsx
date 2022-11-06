@@ -5,22 +5,28 @@ import { Link } from 'react-router-dom';
 import { FaSmileWink } from 'react-icons/fa'
 import {IoMdPeople} from 'react-icons/io'
 
-type Props = {}
+interface Props extends React.HTMLAttributes<HTMLDivElement>{
+  //
+}
 
 const Sidebar = (props: Props) => {
   return (
-    <>
-      <Side>
-        <Menu className='bg-primary text-white h-screen'>
-          <MenuItem icon={<FaSmileWink className='text-8xl' />} className={'text-center h-16 text-2xl font-bold uppercase my-4'}>
-            <span className='block'>Timbangan</span><span className='block'>Bayi</span>
-          </MenuItem>
-          <hr className='mx-5' />
-          <MenuItem icon={<AiOutlineDashboard className='text-2xl' />}> Dashboard </MenuItem>
-          <MenuItem icon={<IoMdPeople className='text-2xl' />}> Data List </MenuItem>
-        </Menu>
-      </Side>
-    </>
+    <Side className={props.className} backgroundColor='#4e73de' >
+      <Menu 
+        className='h-screen'
+      >
+        <MenuItem 
+          routerLink={<Link to='/' />}
+          icon={<FaSmileWink className='text-4xl' />}
+          className={'text-center h-12 text-xl font-bold uppercase my-4'}
+        >
+          <span className='block'>Timbangan</span><span className='block'>Bayi</span>
+        </MenuItem>
+        <hr className='mx-5' />
+        <MenuItem routerLink={<Link to='/' />} icon={<AiOutlineDashboard className='text-2xl' />}> Dashboard </MenuItem>
+        <MenuItem routerLink={<Link to='/datalist' />} icon={<IoMdPeople className='text-2xl' />}> Data List </MenuItem>
+      </Menu>
+    </Side>
   )
 }
 

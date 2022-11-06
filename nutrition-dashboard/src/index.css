@@ -15,3 +15,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sidebar {
+  color: white;
+}
+.menu-anchor:hover {
+  background-color: inherit !important;
+}
+.menu-item:hover {
+  /* border-left: solid 0.2rem; */
+  box-shadow: inset 4px 0px 1px white;
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import Navbar from '../Containers/Navbar'
 import Sidebar from '../Containers/Sidebar'
 
 type Props = {
@@ -7,11 +8,14 @@ type Props = {
 
 const Main = (props: Props) => {
   return (
-    <div className="flex">
+    <div className='flex'>
       <Sidebar />
-      <main className='bg-base min-h-screen'>
-        {props.children}
-      </main>
+      <div className='w-full'>
+        <Navbar />
+        <main className='bg-base min-h-screen'>
+          {props.children}
+        </main>
+      </div>
     </div>
   )
 }

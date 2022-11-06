@@ -1,10 +1,17 @@
 import React from 'react'
+import { useProSidebar } from 'react-pro-sidebar'
+import Main from '../Layouts/Main'
 
 type Props = {}
 
 const DataList = (props: Props) => {
+  const { collapseSidebar } = useProSidebar()
+  
   return (
-    <div>DataList</div>
+    <Main>
+      <button onClick={() => collapseSidebar()}>OOOOOO</button>
+      Data List
+    </Main>
   )
 }
 

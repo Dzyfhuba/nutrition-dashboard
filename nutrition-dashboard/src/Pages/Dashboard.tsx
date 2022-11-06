@@ -5,7 +5,7 @@ import Main from '../Layouts/Main'
 type Props = {}
 
 const Dashboard = (props: Props) => {
-  const { collapseSidebar } = useProSidebar();
+  const { collapseSidebar } = useProSidebar()
 
   return (
     <Main>
