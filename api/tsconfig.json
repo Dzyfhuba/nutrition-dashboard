@@ -9,6 +9,8 @@
   ],
   "compilerOptions": {
     "outDir": "build",
+    "target": "ESNext",
+    "module": "ESNext",
     "rootDir": "./",
     "sourceMap": true,
     "paths": {

@@ -17,10 +17,10 @@ export default class Nutrition extends BaseModel {
   public name: string
 
   @column()
-  public gender: ['L' | 'P']
+  public gender: string
 
   @column()
-  public month: string
+  public month: number
 
   @column()
   public height: number
@@ -29,10 +29,10 @@ export default class Nutrition extends BaseModel {
   public weight: number
 
   @column()
-  public category: ['BB/TB' | 'BB/U' | 'TB/U']
+  public category: string
 
   @column()
-  public z_score: number
+  public zScore: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
