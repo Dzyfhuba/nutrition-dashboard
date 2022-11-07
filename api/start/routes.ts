@@ -26,3 +26,4 @@ Route.get('/', async () => {
 
 Route.resource('/people', 'PeopleController')
 Route.resource('/nutritions', 'NutritionsController')
+Route.resource('/data', 'DataController')
