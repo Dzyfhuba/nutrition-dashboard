@@ -42,7 +42,7 @@ export default class PeopleController {
 
   public async update({ request, response }: HttpContextContract) {
     try {
-      const person = await Person.updateOrCreate(request.body(), request.body())
+      const person = await Person.updateOrCreate(request.params(), request.body())
 
       return response.created(person)
     } catch (error) {
