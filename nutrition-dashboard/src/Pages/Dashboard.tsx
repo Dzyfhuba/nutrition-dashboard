@@ -1,5 +1,6 @@
 import React from 'react'
-import { useProSidebar } from 'react-pro-sidebar';
+import { useProSidebar } from 'react-pro-sidebar'
+import PeopleGrid from '../Containers/PeopleGrid'
 import Main from '../Layouts/Main'
 
 type Props = {}
@@ -9,8 +10,7 @@ const Dashboard = (props: Props) => {
 
   return (
     <Main>
-      <button onClick={() => collapseSidebar()}>OOOOOO</button>
-      Dashboard
+      <PeopleGrid />
     </Main>
   )
 }

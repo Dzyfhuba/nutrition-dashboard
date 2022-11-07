@@ -12,7 +12,7 @@ const Main = (props: Props) => {
       <Sidebar />
       <div className='w-full'>
         <Navbar />
-        <main className='bg-base min-h-screen'>
+        <main className='bg-base min-h-screen p-7'>
           {props.children}
         </main>
       </div>

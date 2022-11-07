@@ -4,7 +4,7 @@ import Person from 'App/Models/Person'
 export default class PeopleController {
   public async index({ response }: HttpContextContract) {
     try {
-      const people = await Person.all()
+      const people = await Person.query().orderBy('updated_at', 'desc')
 
       return response.ok(people)
     } catch (error) {
