@@ -4,11 +4,14 @@ import axios, { Axios, AxiosError } from 'axios'
 import { host } from '../Variables/Server'
 import Swal from 'sweetalert2'
 import Collapsible from 'react-collapsible'
+import PersonNutritionsStats from './PersonNutritionsStats'
+import LoadingSpinner from '../Components/LoadingSpinner'
 
 type Props = {}
 
 const PeopleGrid = (props: Props) => {
   const [people, setPeople] = useState<PersonInterface[]>([])
+  const [collapsesOpen, setCollapseOpen] = useState<string[]>([])
 
   useEffect(() => {
     ;(async () => {
@@ -36,21 +39,11 @@ const PeopleGrid = (props: Props) => {
     <span>No Data</span>
   )
 
+  console.log(collapsesOpen)
+
   return (
-    <div className='grid grid-flow-dense grid-cols-2 gap-7'>
+    <div className='grid grid-flow-dense grid-cols-1 gap-7'>
       {people.length ? people.map(person => (
-        // <article
-        //   key={person.id}
-        //   className={'bg-white rounded-md overflow-hidden shadow-md'}
-        // >
-        //   <div className="bg-blue-50 text-blue-700 p-3">
-        //     <h1 className='font-bold'>{person.name}</h1>
-        //     <small className='text-blue-300 hover:text-blue-700'>{person.id}</small>
-        //   </div>tIL
-        //   <div className="">
-        //     asdjknakdjasnd
-        //   </div>
-        // </article>
         <Collapsible
         key={person.id}
           trigger={
@@ -59,12 +52,19 @@ const PeopleGrid = (props: Props) => {
               <small className='text-blue-300 hover:text-blue-700'>{person.id}</small>
             </div>
           }
-          transitionTime={100}
-          classParentString={'rounded-md overflow-hidden'}
-          openedClassName={'row-span-auto bg-white'}
-          contentInnerClassName='bg-white p-3'
+          classParentString={'overflow-hidden Collapsible shadow-md rounded-md bg-white'}
+          contentInnerClassName='p-3'
+          onOpen={() => setCollapseOpen([...collapsesOpen, person.id])}
+          overflowWhenOpen={'visible'}
+          onClose={() => setCollapseOpen(collapsesOpen.filter(item => item !== person.id))}
         >
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque nemo unde modi mollitia rerum enim aperiam earum optio, necessitatibus, ipsum magni quae, aliquid labore corrupti obcaecati. Cum, laudantium! Corrupti, aliquid.
+          {
+            collapsesOpen.includes(person.id) ? (
+              <PersonNutritionsStats />
+            ) : (
+              <LoadingSpinner />
+            )
+          }
         </Collapsible>
       )) : (Empty)}
     </div>
