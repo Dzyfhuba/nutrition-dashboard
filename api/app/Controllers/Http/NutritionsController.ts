@@ -1,10 +1,28 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Nutrition from 'App/Models/Nutrition'
+import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class NutritionsController {
-  public async index({ response }: HttpContextContract) {
+  public async index({ response, request }: HttpContextContract) {
+    const { personId } = request.qs()
     try {
-      const nutritions = await Nutrition.all()
+      let nutritions
+
+      if (personId) {
+        const nutritions1 = await Nutrition.query().where('person_id', personId)
+
+        nutritions = nutritions1.map((item) => {
+          return {
+            zScore: item.zScore,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+            ...item.$attributes,
+          }
+        })
+        Logger.info(JSON.stringify(nutritions1))
+      } else {
+        nutritions = await Nutrition.all()
+      }
 
       return response.ok(nutritions)
     } catch (error) {

@@ -60,7 +60,7 @@ const PeopleGrid = (props: Props) => {
         >
           {
             collapsesOpen.includes(person.id) ? (
-              <PersonNutritionsStats />
+              <PersonNutritionsStats person={person} />
             ) : (
               <LoadingSpinner />
             )

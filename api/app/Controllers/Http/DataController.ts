@@ -56,24 +56,23 @@ export default class DataController {
 
   public async show({ request, response }: HttpContextContract) {
     try {
-      const item = await Database.query()
+      const data = await Database.query()
         .from('people')
         .join('nutritions', 'nutritions.person_id', 'people.id')
-        .where('nutritions.id', request.param('id'))
+        .where('nutritions.person_id', request.param('id'))
         .select([
-          'nutritions.id as nutrition_id',
+          'nutritions.id',
           'people.id as person_id',
           'people.name',
           'nutritions.month',
           'nutritions.weight',
           'nutritions.height',
-          'nutritions.z_score',
+          'nutritions.z_score as zScore',
           'nutritions.created_at',
           'nutritions.updated_at',
         ])
-        .firstOrFail()
 
-      return response.ok(item)
+      return response.ok(data)
     } catch (error) {
       return response.internalServerError(error)
     }
