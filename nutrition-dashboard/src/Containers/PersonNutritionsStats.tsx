@@ -59,18 +59,17 @@ const PersonNutritionsStats = (props: Props) => {
           {
             name: 'Z Score 1',
             data: nutritions.map(nutrition => nutrition.zScore1),
+            // color: '#f00'
           },
           {
             name: 'Z Score 2',
             data: nutritions.map(nutrition => nutrition.zScore2),
+            // color: '#0f0'
           },
           {
             name: 'Z Score 3',
             data: nutritions.map(nutrition => nutrition.zScore3),
-          },
-          {
-            name: 'Berat Badan',
-            data: nutritions.map(nutrition => nutrition.weight),
+            // color: '#00f',
           },
         ]}
         type="line"

@@ -18,9 +18,19 @@ code {
 
 .sidebar {
   color: white;
-  position: sticky !important;
+}
+
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
 }
+
+.sidebar-inner {
+  overflow-x: unset !important;
+  overflow-y: unset !important;
+}
+
 .menu-anchor:hover {
   background-color: inherit !important;
 }
