@@ -13,7 +13,7 @@ const Sidebar = (props: Props) => {
   return (
     <Side className={props.className} backgroundColor='#4e73de' >
       <Menu 
-        className='h-screen'
+        className='h-screen shadow'
       >
         <MenuItem 
           routerLink={<Link to='/' />}
