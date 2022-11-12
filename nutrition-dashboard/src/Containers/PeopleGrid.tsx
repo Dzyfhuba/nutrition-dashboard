@@ -22,9 +22,6 @@ const PeopleGrid = (props: Props) => {
           Swal.fire({
             title: err.message,
             icon: 'error',
-            allowEnterKey: false,
-            allowEscapeKey: false,
-            allowOutsideClick: false,
             showCancelButton: false,
             showCloseButton: false,
             showConfirmButton: false,

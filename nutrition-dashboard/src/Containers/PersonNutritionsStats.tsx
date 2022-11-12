@@ -53,20 +53,24 @@ const PersonNutritionsStats = (props: Props) => {
           },
           xaxis: {
             categories: nutritions.map(nutrition => nutrition.month)
-          }
+          },
         }}
         series= {[
           {
-            name: 'Z Score',
-            data: nutritions.map(nutrition => nutrition.zScore),
+            name: 'Z Score 1',
+            data: nutritions.map(nutrition => nutrition.zScore1),
+          },
+          {
+            name: 'Z Score 2',
+            data: nutritions.map(nutrition => nutrition.zScore2),
+          },
+          {
+            name: 'Z Score 3',
+            data: nutritions.map(nutrition => nutrition.zScore3),
           },
           {
             name: 'Berat Badan',
-            data: nutritions.map(nutrition => nutrition.weight)
-          },
-          {
-            name: 'Tinggi Badan',
-            data: nutritions.map(nutrition => nutrition.height)
+            data: nutritions.map(nutrition => nutrition.weight),
           },
         ]}
         type="line"
@@ -87,7 +91,9 @@ const PersonNutritionsStats = (props: Props) => {
               <td className='border p-1'>{nutrition.month}</td>
               <td className='border p-1'>{nutrition.height}</td>
               <td className='border p-1'>{nutrition.weight}</td>
-              <td className='border p-1'>{nutrition.zScore}</td>
+              <td className='border p-1'>{nutrition.zScore1}</td>
+              <td className='border p-1'>{nutrition.zScore2}</td>
+              <td className='border p-1'>{nutrition.zScore3}</td>
               <td className='border p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
             </tr>
           ))}

@@ -28,7 +28,13 @@ export default class Nutrition extends BaseModel {
   public height: number
 
   @column()
-  public zScore: number
+  public zScore1: number
+
+  @column()
+  public zScore2: number
+
+  @column()
+  public zScore3: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

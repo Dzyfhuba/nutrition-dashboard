@@ -4,7 +4,9 @@ export interface NutritionInterface {
   month: number,
   weight: number,
   height: number,
-  zScore: number,
+  zScore1: number,
+  zScore2: number,
+  zScore3: number,
   createdAt: string,
   updatedAt: string,
 }

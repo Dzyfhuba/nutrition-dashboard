@@ -18,6 +18,8 @@ code {
 
 .sidebar {
   color: white;
+  position: sticky !important;
+  top: 0;
 }
 .menu-anchor:hover {
   background-color: inherit !important;

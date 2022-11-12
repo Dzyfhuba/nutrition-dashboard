@@ -13,7 +13,9 @@ export default class NutritionsController {
 
         nutritions = nutritions1.map((item) => {
           return {
-            zScore: item.zScore,
+            zScore1: item.zScore1,
+            zScore2: item.zScore2,
+            zScore3: item.zScore3,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
             ...item.$attributes,

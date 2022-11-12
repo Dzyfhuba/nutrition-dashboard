@@ -10,7 +10,9 @@ export default class extends BaseSchema {
       table.string('month').notNullable()
       table.decimal('weight').notNullable()
       table.decimal('height').notNullable()
-      table.decimal('z_score').notNullable()
+      table.decimal('z_score1').notNullable()
+      table.decimal('z_score2').notNullable()
+      table.decimal('z_score3').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
