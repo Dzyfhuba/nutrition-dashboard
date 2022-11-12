@@ -7,7 +7,8 @@ import { host } from '../Variables/Server'
 import Chart from 'react-apexcharts'
 import {DateTime} from 'luxon'
 interface Props {
-  person: PersonInterface
+  person: PersonInterface,
+  isDual: boolean
 }
 
 const PersonNutritionsStats = (props: Props) => {
@@ -42,7 +43,7 @@ const PersonNutritionsStats = (props: Props) => {
   
 
   return (
-    <div className=''>
+    <div className={`grid grid-flow-row gap-3 ${props.isDual ? 'grid-cols-1' : 'grid-cols-2'}`}>
       <Chart
         options={{
           chart: {
@@ -74,30 +75,32 @@ const PersonNutritionsStats = (props: Props) => {
         ]}
         type="line"
       />
-      <table id={`table-${props.person.id}`} className={'table-auto w-full'}>
-        <thead>
-          <tr>
-            <th className='border'>Bulan</th>
-            <th className='border'>Tinggi Badan</th>
-            <th className='border'>Berat Badan</th>
-            <th className='border'>Z Score</th>
-            <th className='border'>Tanggal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {nutritions.length && nutritions.map(({id, person_id, createdAt, ...rest}) => rest).map((nutrition, index) => (
-            <tr key={index}>
-              <td className='border p-1'>{nutrition.month}</td>
-              <td className='border p-1'>{nutrition.height}</td>
-              <td className='border p-1'>{nutrition.weight}</td>
-              <td className='border p-1'>{nutrition.zScore1}</td>
-              <td className='border p-1'>{nutrition.zScore2}</td>
-              <td className='border p-1'>{nutrition.zScore3}</td>
-              <td className='border p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
+        <table id={`table-${props.person.id}`} className={`table-auto w-full`}>
+          <thead>
+            <tr>
+              <th className='border'>Bulan</th>
+              <th className='border'>Tinggi Badan</th>
+              <th className='border'>Berat Badan</th>
+              <th className='border'>Z Score 1</th>
+              <th className='border'>Z Score 2</th>
+              <th className='border'>Z Score 3</th>
+              <th className='border'>Tanggal</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {nutritions.length && nutritions.map(({id, person_id, createdAt, ...rest}) => rest).map((nutrition, index) => (
+              <tr key={index}>
+                <td className='border p-1'>{nutrition.month}</td>
+                <td className='border p-1'>{nutrition.height}</td>
+                <td className='border p-1'>{nutrition.weight}</td>
+                <td className='border p-1'>{nutrition.zScore1}</td>
+                <td className='border p-1'>{nutrition.zScore2}</td>
+                <td className='border p-1'>{nutrition.zScore3}</td>
+                <td className='border p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
     </div>
   )
 }

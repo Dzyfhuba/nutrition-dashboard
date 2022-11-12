@@ -44,8 +44,8 @@ const PeopleGrid = (props: Props) => {
 
   return (
       <>
-        <Switch checked={isDualCol} onChange={setDualCol} className={'mb-3'} uncheckedIcon={<CgMenuBoxed className='p-1 text-white h-full w-full block' />} checkedIcon={<TbColumns className='p-1 text-white h-full w-full block' />} />
-        <div className={`grid grid-flow-row-dense gap-7 ${isDualCol ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        <Switch checked={isDualCol} onChange={setDualCol} className={'mb-3 xl:block hidden'} uncheckedIcon={<CgMenuBoxed className='p-1 text-white h-full w-full block' />} checkedIcon={<TbColumns className='p-1 text-white h-full w-full block' />} />
+        <div className={`grid grid-flow-row-dense gap-7 ${isDualCol ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1'}`}>
         {people.length ? people.map(person => (
           <Collapsible
             key={person.id}
@@ -53,7 +53,7 @@ const PeopleGrid = (props: Props) => {
               <h1 className='font-bold'>{person.name}</h1>
               <small className='text-blue-300 hover:text-blue-700'>{person.id}</small>
             </div>}
-            classParentString={'overflow-hidden Collapsible rounded-md bg-white shadow h-min'}
+            classParentString={'overflow-hidden Collapsible rounded-md bg-white shadow-md h-min'}
             contentOuterClassName={'shadow-md'}
             contentInnerClassName='p-3 bg-white shadow'
             onOpen={() => setCollapseOpen([...collapsesOpen, person.id])}
@@ -61,7 +61,7 @@ const PeopleGrid = (props: Props) => {
             onClose={() => setCollapseOpen(collapsesOpen.filter(item => item !== person.id))}
           >
             {collapsesOpen.includes(person.id) ? (
-              <PersonNutritionsStats person={person} />
+              <PersonNutritionsStats isDual={isDualCol} person={person} />
             ) : (
               <LoadingSpinner />
             )}
