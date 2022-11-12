@@ -11,8 +11,8 @@ const Main = (props: Props) => {
     <div className='flex'>
       <Sidebar />
       <div className='w-full'>
-        <Navbar />
-        <main className='bg-base min-h-screen p-7'>
+        {/* <Navbar /> */}
+        <main className='bg-base min-h-screen'>
           {props.children}
         </main>
       </div>

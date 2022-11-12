@@ -8,7 +8,7 @@ import Chart from 'react-apexcharts'
 import {DateTime} from 'luxon'
 interface Props {
   person: PersonInterface,
-  isDual: boolean
+  isDual: boolean,
 }
 
 const PersonNutritionsStats = (props: Props) => {
