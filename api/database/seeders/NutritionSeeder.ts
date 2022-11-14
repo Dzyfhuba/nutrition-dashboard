@@ -26,11 +26,3 @@ export default class extends BaseSeeder {
     await Nutrition.createMany(data.flat())
   }
 }
-
-// return {
-//   person_id: person.id,
-//   weight: faker.datatype.number({ min: 2.3, max: 10.8 }),
-//   height: faker.datatype.number({ min: 48.7, max: 74.55 }),
-//   zScore: faker.datatype.number({ min: -3, max: 3 }),
-//   month: monthStart,
-// }

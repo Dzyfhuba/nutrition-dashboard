@@ -11,16 +11,19 @@ export default class NutritionsController {
       if (personId) {
         const nutritions1 = await Nutrition.query().where('person_id', personId)
 
-        nutritions = nutritions1.map((item) => {
-          return {
-            zScore1: item.zScore1,
-            zScore2: item.zScore2,
-            zScore3: item.zScore3,
-            createdAt: item.createdAt,
-            updatedAt: item.updatedAt,
-            ...item.$attributes,
-          }
-        })
+        nutritions = nutritions1
+          .map((item) => {
+            return {
+              zScore1: item.zScore1,
+              zScore2: item.zScore2,
+              zScore3: item.zScore3,
+              createdAt: item.createdAt,
+              updatedAt: item.updatedAt,
+              month: item.month,
+              ...item.$attributes,
+            }
+          })
+          .sort((a, b) => a.month - b.month)
         Logger.info(JSON.stringify(nutritions1))
       } else {
         nutritions = await Nutrition.all()

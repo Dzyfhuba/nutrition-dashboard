@@ -32,7 +32,7 @@ export default class DataController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    const { name, month, weight, height, zScore } = request.body()
+    const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.body()
     try {
       const person = await Person.create({
         name,
@@ -42,7 +42,9 @@ export default class DataController {
         month,
         weight,
         height,
-        zScore,
+        zScore1,
+        zScore2,
+        zScore3,
       })
 
       return response.created({
@@ -71,6 +73,7 @@ export default class DataController {
           'nutritions.created_at',
           'nutritions.updated_at',
         ])
+        .orderBy('nutritions.month', 'asc')
 
       return response.ok(data)
     } catch (error) {
@@ -83,13 +86,15 @@ export default class DataController {
   }
 
   public async update({ request, response }: HttpContextContract) {
-    const { name, month, weight, height, zScore } = request.body()
+    const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.body()
     try {
       const nutrition = await Nutrition.findOrFail(request.param('id'))
       nutrition.month = month
       nutrition.weight = weight
       nutrition.height = height
-      nutrition.zScore = zScore
+      nutrition.zScore1 = zScore1
+      nutrition.zScore2 = zScore2
+      nutrition.zScore3 = zScore3
       await nutrition.save()
 
       const person = await Person.findOrFail(nutrition.person_id)
