@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
 import { BaseModel, beforeCreate, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import { nanoid } from 'nanoid'
+import { customAlphabet } from 'nanoid'
 import Nutrition from './Nutrition'
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 10)
 
 export default class Person extends BaseModel {
   @column({ isPrimary: true })

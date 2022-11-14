@@ -48,7 +48,10 @@ const PeopleGrid = (props: Props) => {
       <div className='p-7'>
         <Switch checked={isDualCol} onChange={setDualCol} className={'mb-3 xl:block hidden'} uncheckedIcon={<CgMenuBoxed className='p-1 text-white h-full w-full block' />} checkedIcon={<TbColumns className='p-1 text-white h-full w-full block' />} />
         <div className={`grid grid-flow-row-dense gap-7 ${isDualCol ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1'}`}>
-        {people.length ? people.filter(person => person.name.toLocaleLowerCase().replace(' ', '').includes(props.filter || '')).map(person => (
+        {people.length ? people
+          .filter(person => person.name.toLocaleLowerCase().replace(' ', '').includes(props.filter || '') || person.id.toLocaleLowerCase().replace(' ', '')
+          .includes(props.filter || ''))
+          .map(person => (
           <Collapsible
             key={person.id}
             trigger={<div className="bg-blue-50 text-blue-700 p-3">
