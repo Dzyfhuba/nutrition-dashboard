@@ -50,7 +50,7 @@ const PersonNutritionsStats = (props: Props) => {
             id: 'nutrition',
           },
           legend: {
-            show: true
+            show: true,
           },
           xaxis: {
             categories: nutritions.map(nutrition => nutrition.month)
@@ -78,25 +78,25 @@ const PersonNutritionsStats = (props: Props) => {
         <table id={`table-${props.person.id}`} className={`table-auto w-full`}>
           <thead>
             <tr>
-              <th className='border'>Bulan</th>
-              <th className='border'>Tinggi Badan</th>
-              <th className='border'>Berat Badan</th>
-              <th className='border'>Z Score 1</th>
-              <th className='border'>Z Score 2</th>
-              <th className='border'>Z Score 3</th>
-              <th className='border'>Tanggal</th>
+              <th className='border border-slate-500'>Bulan</th>
+              <th className='border border-slate-500'>Tinggi Badan</th>
+              <th className='border border-slate-500'>Berat Badan</th>
+              <th className='border border-slate-500'>Z Score 1</th>
+              <th className='border border-slate-500'>Z Score 2</th>
+              <th className='border border-slate-500'>Z Score 3</th>
+              <th className='border border-slate-500'>Tanggal</th>
             </tr>
           </thead>
           <tbody>
             {nutritions.length && nutritions.map(({id, person_id, createdAt, ...rest}) => rest).map((nutrition, index) => (
               <tr key={index}>
-                <td className='border p-1'>{nutrition.month}</td>
-                <td className='border p-1'>{nutrition.height}</td>
-                <td className='border p-1'>{nutrition.weight}</td>
-                <td className='border p-1'>{nutrition.zScore1}</td>
-                <td className='border p-1'>{nutrition.zScore2}</td>
-                <td className='border p-1'>{nutrition.zScore3}</td>
-                <td className='border p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.month}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.height}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.weight}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.zScore1}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.zScore2}</td>
+                <td className='border border-slate-500 p-1'>{nutrition.zScore3}</td>
+                <td className='border border-slate-500 p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
               </tr>
             ))}
           </tbody>
