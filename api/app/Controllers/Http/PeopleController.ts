@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Nutrition from 'App/Models/Nutrition'
 import Person from 'App/Models/Person'
 
 export default class PeopleController {
@@ -53,10 +54,14 @@ export default class PeopleController {
   public async destroy({ response, request }: HttpContextContract) {
     try {
       const person = await Person.findOrFail(request.param('id'))
+      const nutritions = await Nutrition.query().where('person_id', request.param('id')).delete()
 
       await person.delete()
 
-      return response.ok(person)
+      return response.ok({
+        person,
+        nutritions,
+      })
     } catch (error) {
       return response.internalServerError(error)
     }

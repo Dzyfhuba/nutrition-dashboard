@@ -24,7 +24,7 @@ const Sidebar = (props: Props) => {
         </MenuItem>
         <hr className='mx-5' />
         <MenuItem routerLink={<Link to='/' />} icon={<AiOutlineDashboard className='text-2xl' />}> Dashboard </MenuItem>
-        <MenuItem routerLink={<Link to='/datalist' />} icon={<IoMdPeople className='text-2xl' />}> Data List </MenuItem>
+        {/* <MenuItem routerLink={<Link to='/datalist' />} icon={<IoMdPeople className='text-2xl' />}> Data List </MenuItem> */}
       </Menu>
     </Side>
   )

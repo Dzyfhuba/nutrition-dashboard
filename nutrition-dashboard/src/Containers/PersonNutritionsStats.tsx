@@ -6,6 +6,8 @@ import { PersonInterface } from '../Interfaces/PersonInterface'
 import { host } from '../Variables/Server'
 import Chart from 'react-apexcharts'
 import {DateTime} from 'luxon'
+import Button from '../Components/Button'
+import {IoReload} from 'react-icons/io5'
 interface Props {
   person: PersonInterface,
   isDual: boolean,
@@ -17,33 +19,43 @@ const PersonNutritionsStats = (props: Props) => {
   
   useEffect(() => {
     (async() => {
-      const data = await axios.get(host + '/nutritions?personId=' + props.person.id)
-        .then(res => {
-          return res.data
-        })
-        .catch((err:AxiosError) => {
-          Swal.fire({
-            title: err.message,
-            icon: 'error',
-            showConfirmButton: false,
-          })
-          return
-        })
-      setNutritions(data)
-      setLoading(false)
-
+      await load()
     })()
 
     return () => {
       setNutritions([])
     }
-  }, [props.person.id])  
+  }, [])  
 
-  console.log(nutritions);
-  
+  const load = async () => {
+    setLoading(true)
+    console.log('load nutrition stats');
+    
+    const data = await axios.get(host + '/nutritions?personId=' + props.person.id)
+    .then(res => {
+      return res.data
+    })
+    .catch((err:AxiosError) => {
+      Swal.fire({
+        title: err.message,
+        icon: 'error',
+        showConfirmButton: false,
+      })
+      return
+    })
+    setNutritions(data)
+    setLoading(false)
+  }
 
   return (
-    <div className={`grid grid-flow-row gap-3 ${props.isDual ? 'grid-cols-1' : 'grid-cols-2'}`}>
+    <div className={`grid grid-flow-row gap-3 relative ${props.isDual ? 'grid-cols-1' : 'grid-cols-2'}`}>
+      <Button 
+        className='bg-transparent text-blue-700 border-0 hover:bg-transparent hover:rotate-90 duration-300 transition-transform 
+        active:rotate-180 ml-auto'
+        onClick={async () => await load()}
+      >
+        <IoReload className='text-2xl font-bold' />
+      </Button>
       <Chart
         options={{
           chart: {
@@ -53,8 +65,19 @@ const PersonNutritionsStats = (props: Props) => {
             show: true,
           },
           xaxis: {
-            categories: nutritions.map(nutrition => nutrition.month)
+            categories: nutritions.map((nutrition, index) => index+1),
+            title: {
+              text: 'Pengukuran ke-(n)',
+              offsetY: 80
+            },
+            position: 'bottom'
           },
+          yaxis: {
+            title: {
+              text: 'Z Score',
+            },
+
+          }
         }}
         series= {[
           {
@@ -88,7 +111,7 @@ const PersonNutritionsStats = (props: Props) => {
             </tr>
           </thead>
           <tbody>
-            {nutritions.length && nutritions.map(({id, person_id, createdAt, ...rest}) => rest).map((nutrition, index) => (
+            {nutritions.length ? nutritions.map(({id, person_id, createdAt, ...rest}) => rest).map((nutrition, index) => (
               <tr key={index}>
                 <td className='border border-slate-500 p-1'>{nutrition.month}</td>
                 <td className='border border-slate-500 p-1'>{nutrition.height}</td>
@@ -98,7 +121,17 @@ const PersonNutritionsStats = (props: Props) => {
                 <td className='border border-slate-500 p-1'>{nutrition.zScore3}</td>
                 <td className='border border-slate-500 p-1'>{DateTime.fromISO(nutrition.updatedAt).toFormat('dd LLL yyyy')}</td>
               </tr>
-            ))}
+            )) : (
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            )}
           </tbody>
         </table>
     </div>
