@@ -18,7 +18,7 @@ Used to monitor individual nutrition
 > cd nutrition-dashboard
 > ```
 2. Setup Back End
-> Each procedure at this point must be located in the ```/api``` directory. from the point above, ```cd /api``` to change directory to ```nutrition-dashboard/api```
+> Each procedure at this point must be located in the ```/api``` directory. from the point above, ```cd api``` to change directory to ```nutrition-dashboard/api```
 > ### Install dependencies
 > ```bash
 > npm install
@@ -41,13 +41,18 @@ Used to monitor individual nutrition
 > ```bash
 > npm run dev
 > ```
+> Don't close/stop/interupt the window/command.
+> Open new terminal instead.
 3. Setup Front End
-> Each procedure at this point must be located in the ```/api``` directory. from the point above, ```cd /api``` to change directory to ```nutrition-dashboard/api```
+> Each procedure at this point must be located in the ```/nutrition-dashboard``` directory. from the point above, ```cd nutrition-dashboard``` to change directory to ```nutrition-dashboard/nutrition-dashboard```
 > ### Install dependencies
 > ```bash
 > npm install
 > ```
 > ### Start development mode server on port 3000
+> ```bash
+> npm start
+> ```
 
 ## For production mode
 By ```npm run build``` and follow the intructions from this command.
