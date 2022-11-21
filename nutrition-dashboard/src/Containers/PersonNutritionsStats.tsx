@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import React, { TableHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
-import Swal from 'sweetalert2'
+import Swal, { SweetAlertResult } from 'sweetalert2'
 import { NutritionInterface } from '../Interfaces/NutritionInterface'
 import { PersonInterface } from '../Interfaces/PersonInterface'
 import { host } from '../Variables/Server'
@@ -128,7 +128,36 @@ const PersonNutritionsStats = (props: Props) => {
                   <td className='border border-slate-500 p-1'>{nutrition.zScore1}</td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore2}</td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore3}</td>
-                    <UpdatedAtInput nutritionId={nutrition.id} updatedAt={nutrition.datetime} />
+                  <UpdatedAtInput nutritionId={nutrition.id} updatedAt={nutrition.datetime} load={load} />
+                  <td>
+                    <Button
+                      className={`bg-white text-red-700 border-0`}
+                      onClick={() => {
+                        Swal.fire({
+                          title: 'Hapus?',
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#f00',
+                          confirmButtonText: 'Delete'
+                        }).then(async (val) => {
+                          if (val.isConfirmed) {
+                            const res = await axios.delete(host + '/nutritions/' + nutrition.id)
+                              .then(async (res:AxiosResponse) => {
+                                // setNutritions(nutritions.filter(item => item.id !== res.data.id))
+                                await load()
+                                return res
+                              })
+                              .catch((error:AxiosError) => {
+                                Swal.fire(error.name, error.message, 'error')
+                              })
+                            console.log(res);
+                          }
+                        })
+                      } }
+                    >
+                      <FaTrash />
+                    </Button>
+                  </td>
                 </tr>
               )) : (
                 <tr>

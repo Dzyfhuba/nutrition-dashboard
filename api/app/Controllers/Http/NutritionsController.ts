@@ -85,7 +85,7 @@ export default class NutritionsController {
   public async destroy({ request, response }: HttpContextContract) {
     try {
       const nutrition = await Nutrition.findOrFail(request.param('id'))
-      await nutrition.save()
+      await nutrition.delete()
 
       return response.ok(nutrition)
     } catch (error) {

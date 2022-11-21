@@ -10,7 +10,8 @@ import { host } from '../Variables/Server'
 
 type Props = {
   nutritionId: string,
-  updatedAt: string
+  updatedAt: string,
+  load: () => void
 }
 
 const UpdatedAtInput = (props: Props) => {
@@ -30,25 +31,30 @@ const UpdatedAtInput = (props: Props) => {
         console.error(error)
       })
       console.log(res);
-      
     setLoading(false)
+    setEdit(false)
   }
 
   return (
     <>
       <td className='border border-r-0 border-slate-500 p-1 w-min'> 
+        <span>
+          {!isEdit && new Date(date || props.updatedAt).toLocaleString()}
+        </span>
         <Input 
           type={'datetime-local'}
           className={`w-min disabled:bg-white`}
-          defaultValue={props.updatedAt.substring(0, 16)}
+          // defaultValue={props.updatedAt.substring(0, 16)}
+          value={date}
           onChange={(e:React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
           disabled={!isEdit}
+          hidden={!isEdit}
         />
       </td>
       <td className='border border-slate-500'>
         <Button
           className={`bg-white text-blue-700 border-0 ${isEdit && 'hidden'}`}
-            onClick={() => setEdit(true)}
+            onClick={() => {setEdit(true);setDate(props.updatedAt.substring(0, 16));props.load()}}
         >
           <FaEdit />
         </Button>
@@ -63,12 +69,6 @@ const UpdatedAtInput = (props: Props) => {
           onClick={() => updateNutrition()}
         >
           <FaCheck />
-        </Button>
-        <Button
-          className={`bg-white text-red-700 border-0 ${isEdit && 'hidden'}`}
-          onClick={() => { } }
-        >
-          <FaTrash />
         </Button>
       </td>
     </>
