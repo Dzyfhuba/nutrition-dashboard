@@ -36,6 +36,16 @@ export default class Nutrition extends BaseModel {
   @column()
   public zScore3: number
 
+  @column.dateTime()
+  public datetime: DateTime
+
+  // @beforeCreate()
+  // public static generateDateTime(nutrition: Nutrition) {
+  //   if (!nutrition.datetime) {
+  //     nutrition.datetime = DateTime.now()
+  //   }
+  // }
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

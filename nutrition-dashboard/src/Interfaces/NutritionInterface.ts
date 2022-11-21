@@ -7,6 +7,7 @@ export interface NutritionInterface {
   zScore1: number,
   zScore2: number,
   zScore3: number,
+  datetime: string,
   createdAt: string,
   updatedAt: string,
 }

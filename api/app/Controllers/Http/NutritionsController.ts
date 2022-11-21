@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Nutrition from 'App/Models/Nutrition'
 import Logger from '@ioc:Adonis/Core/Logger'
+import { DateTime } from 'luxon'
 
 export default class NutritionsController {
   public async index({ response, request }: HttpContextContract) {
@@ -64,8 +65,16 @@ export default class NutritionsController {
   }
 
   public async update({ request, response }: HttpContextContract) {
+    const { updatedAt } = request.body()
+    Logger.info(updatedAt)
     try {
-      const nutrition = await Nutrition.updateOrCreate(request.params(), request.body())
+      // const nutrition = await Nutrition.updateOrCreate(request.params(), request.body())
+      const nutrition = await Nutrition.findOrFail(request.param('id'))
+
+      nutrition.datetime = DateTime.fromISO(updatedAt)
+      Logger.info(JSON.stringify(nutrition))
+
+      await nutrition.save()
 
       return response.created(nutrition)
     } catch (error) {
@@ -76,7 +85,7 @@ export default class NutritionsController {
   public async destroy({ request, response }: HttpContextContract) {
     try {
       const nutrition = await Nutrition.findOrFail(request.param('id'))
-      await nutrition.delete()
+      await nutrition.save()
 
       return response.ok(nutrition)
     } catch (error) {

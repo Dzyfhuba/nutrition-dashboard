@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    //
+    ref?: any
 }
 
 const Input = (props: Props) => {
