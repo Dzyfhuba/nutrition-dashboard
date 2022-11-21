@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker'
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Nutrition from 'App/Models/Nutrition'
 import Person from 'App/Models/Person'
-import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class extends BaseSeeder {
   public async run() {

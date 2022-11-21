@@ -33,9 +33,18 @@ export default class DataController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.body()
+    const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.body() as {
+      name: string
+      month: string
+      weight: string
+      height: string
+      zScore1: string
+      zScore2: string
+      zScore3: string
+    }
+    Logger.info(JSON.stringify(request.body()))
     try {
-      const exists = await Person.query().where('id', name)
+      const exists = await Person.query().where('id', name.replace('\r', ' '))
       Logger.info('exist ' + JSON.stringify(exists))
 
       let personId: string = ''
