@@ -35,12 +35,12 @@ export default class DataController {
   public async store({ request, response }: HttpContextContract) {
     const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.body() as {
       name: string
-      month: string
-      weight: string
-      height: string
-      zScore1: string
-      zScore2: string
-      zScore3: string
+      month: number
+      weight: number
+      height: number
+      zScore1: number
+      zScore2: number
+      zScore3: number
     }
     Logger.info(JSON.stringify(request.body()))
     try {
