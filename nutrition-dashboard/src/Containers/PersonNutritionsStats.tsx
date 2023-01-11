@@ -35,7 +35,7 @@ const PersonNutritionsStats = (props: Props) => {
     setLoading(true)
     console.log('load nutrition stats');
     
-    const data = await axios.get(host + '/nutritions?personId=' + props.person.id)
+    const data = await axios.get(host + '/nutritions?personNormalizedId=' + props.person.normalized_id)
     .then(res => {
       return res.data
     })
@@ -88,17 +88,17 @@ const PersonNutritionsStats = (props: Props) => {
           }}
           series= {[
             {
-              name: 'Z Score 1',
+              name: 'Z Score (BB/PB)',
               data: nutritions.map(nutrition => nutrition.zScore1),
               // color: '#f00'
             },
             {
-              name: 'Z Score 2',
+              name: 'Z Score (BB/U)',
               data: nutritions.map(nutrition => nutrition.zScore2),
               // color: '#0f0'
             },
             {
-              name: 'Z Score 3',
+              name: 'Z Score 3 (PB/U)',
               data: nutritions.map(nutrition => nutrition.zScore3),
               // color: '#00f',
             },
@@ -112,9 +112,12 @@ const PersonNutritionsStats = (props: Props) => {
                 <th className='border border-slate-500'>Usia (Bulan)</th>
                 <th className='border border-slate-500'>Tinggi Badan (cm)</th>
                 <th className='border border-slate-500'>Berat Badan (kg) </th>
-                <th className='border border-slate-500'>Z Score 1</th>
-                <th className='border border-slate-500'>Z Score 2</th>
-                <th className='border border-slate-500'>Z Score 3</th>
+                <th className='border border-slate-500'>Z Score (BB/BP)</th>
+                <th className='border border-slate-500'>Keterangan</th>
+                <th className='border border-slate-500'>Z Score (BB/U)</th>
+                <th className='border border-slate-500'>Keterangan</th>
+                <th className='border border-slate-500'>Z Score (PB/U)</th>
+                <th className='border border-slate-500'>Keterangan</th>
                 <th className='border border-slate-500' colSpan={2}>Tanggal</th>
                 {/* <th></th> */}
               </tr>
@@ -126,8 +129,32 @@ const PersonNutritionsStats = (props: Props) => {
                   <td className='border border-slate-500 p-1'>{nutrition.height}</td>
                   <td className='border border-slate-500 p-1'>{nutrition.weight}</td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore1}</td>
+                  <td className='border border-slate-500 p-1'>
+                    {
+                      nutrition.zScore1 > 2 ? 
+                        'gemuk' : (nutrition.zScore1 > -2 ? 
+                          'normal' : (nutrition.zScore1 > -3 ? 
+                            'kurus' : 'sangat kurus'))
+                    }
+                  </td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore2}</td>
+                  <td className='border border-slate-500 p-1'>
+                    {
+                      nutrition.zScore2 > 2 ? 
+                        'gizi lebih' : (nutrition.zScore2 > -2 ? 
+                          'gizi baik' : (nutrition.zScore2 > -3 ? 
+                            'gizi kurang' : 'gizi buruk'))
+                    }
+                  </td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore3}</td>
+                  <td className='border border-slate-500 p-1'>
+                    {
+                      nutrition.zScore3 > 2 ? 
+                        'tinggi' : (nutrition.zScore3 > -2 ? 
+                          'normal' : (nutrition.zScore3 > -3 ? 
+                            'pendek' : 'sangat pendek'))
+                    }
+                  </td>
                   <UpdatedAtInput nutritionId={nutrition.id} updatedAt={nutrition.datetime} load={load} />
                   <td>
                     <Button

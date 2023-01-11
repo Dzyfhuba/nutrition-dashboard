@@ -34,6 +34,8 @@ const PeopleGrid = (props: Props) => {
             showDenyButton: false,
           })
         })
+      console.log(peopleFromResponse);
+      
       setPeople(peopleFromResponse)
     })()
   }, [])
@@ -56,7 +58,7 @@ const PeopleGrid = (props: Props) => {
             key={person.id}
             trigger={<div className="bg-blue-50 text-blue-700 p-3">
               <h1 className='font-bold'>{person.name}</h1>
-              <small className='text-blue-300 hover:text-blue-700'>{person.id}</small>
+              <small className='text-blue-300 hover:text-blue-700'>{person.normalized_id}</small>
             </div>}
             classParentString={'overflow-hidden Collapsible rounded-md bg-white shadow-md h-min'}
             contentOuterClassName={'shadow-md'}
