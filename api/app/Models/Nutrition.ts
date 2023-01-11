@@ -16,7 +16,7 @@ export default class Nutrition extends BaseModel {
   public person: BelongsTo<typeof Person>
 
   @column()
-  public person_id: string
+  public personNormalizedId: string
 
   @column()
   public month: number

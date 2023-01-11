@@ -6,7 +6,12 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').notNullable()
-      table.string('person_id').references('id').inTable('people').notNullable()
+      table
+        .integer('person_normalized_id')
+        .unsigned()
+        .references('id')
+        .inTable('people')
+        .notNullable()
       table.string('month').notNullable()
       table.decimal('weight').notNullable()
       table.decimal('height').notNullable()

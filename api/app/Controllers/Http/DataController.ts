@@ -44,19 +44,19 @@ export default class DataController {
     }
     Logger.info(JSON.stringify(request.body()))
     try {
-      const exists = await Person.query().where('id', name.replace('\r', ' '))
+      const exists = await Person.query().where('normalized_id', name.replace('\r', ' '))
       Logger.info('exist ' + JSON.stringify(exists))
 
-      let personId: string = ''
+      let personNormalizedId: string = ''
       let person
       let nutrition
 
       if (exists.length) {
         Logger.info('data exist')
-        personId = exists[0].id
         person = exists[0]
+        personNormalizedId = exists[0].normalizedId
         nutrition = await Nutrition.create({
-          person_id: personId,
+          personNormalizedId: personNormalizedId,
           month,
           weight,
           height,
@@ -69,8 +69,10 @@ export default class DataController {
         person = await Person.create({
           name,
         })
+        person = await Person.findOrFail(person.id)
+        Logger.info(JSON.stringify(person))
         nutrition = await Nutrition.create({
-          person_id: person.id,
+          personNormalizedId: person.normalizedId,
           month,
           weight,
           height,
@@ -136,7 +138,7 @@ export default class DataController {
       nutrition.zScore3 = zScore3
       await nutrition.save()
 
-      const person = await Person.findOrFail(nutrition.person_id)
+      const person = await Person.findByOrFail('person_normalized_id', nutrition.personNormalizedId)
       person.name = name
       await person.save()
 
@@ -153,47 +155,47 @@ export default class DataController {
     return response.notFound()
   }
 
-  public async storeGet({ request, response }: HttpContextContract) {
-    const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.params()
-    try {
-      const exists = await Person.find(name)
-      Logger.info(JSON.stringify(exists))
+  // public async storeGet({ request, response }: HttpContextContract) {
+  //   const { name, month, weight, height, zScore1, zScore2, zScore3 } = request.params()
+  //   try {
+  //     const exists = await Person.find(name)
+  //     Logger.info(JSON.stringify(exists))
 
-      let personId: string = ''
-      let person
+  //     let personId: string = ''
+  //     let person
 
-      if (exists) {
-        personId = exists.id
-      } else {
-        person = await Person.create({
-          name,
-        })
-      }
+  //     if (exists) {
+  //       personId = exists.id
+  //     } else {
+  //       person = await Person.create({
+  //         name,
+  //       })
+  //     }
 
-      const nutrition = await Nutrition.create({
-        person_id: person.id || personId,
-        month,
-        weight,
-        height,
-        zScore1,
-        zScore2,
-        zScore3,
-      })
+  //     const nutrition = await Nutrition.create({
+  //       person_id: person.id || personId,
+  //       month,
+  //       weight,
+  //       height,
+  //       zScore1,
+  //       zScore2,
+  //       zScore3,
+  //     })
 
-      return response.created({
-        body: request.body(),
-        data: {
-          ...person.$attributes,
-          ...nutrition.$attributes,
-        },
-      })
-    } catch (error) {
-      Logger.info(JSON.stringify(request))
-      return response.internalServerError({
-        link: 'https://stackoverflow.com/questions/58150008/arduino-post-request-using-json',
-        body: request.body(),
-        error,
-      })
-    }
-  }
+  //     return response.created({
+  //       body: request.body(),
+  //       data: {
+  //         ...person.$attributes,
+  //         ...nutrition.$attributes,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     Logger.info(JSON.stringify(request))
+  //     return response.internalServerError({
+  //       link: 'https://stackoverflow.com/questions/58150008/arduino-post-request-using-json',
+  //       body: request.body(),
+  //       error,
+  //     })
+  //   }
+  // }
 }

@@ -1,18 +1,24 @@
+import { afterCreate, BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import { customAlphabet } from 'nanoid'
 import Nutrition from './Nutrition'
 
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 10)
+const pad = (n: number, length: number) => {
+  var len = length - ('' + n).length
+  return (len > 0 ? new Array(++len).join('0') : '') + n
+}
 
 export default class Person extends BaseModel {
   @column({ isPrimary: true })
-  public id: string
+  public id: number
 
-  @beforeCreate()
-  public static generateId(person: Person) {
-    person.id = nanoid()
+  @afterCreate()
+  public static async generate(person: Person) {
+    person.normalizedId = pad(person.id, 3)
+    await person.save()
   }
+
+  @column()
+  public normalizedId: string
 
   @column()
   public name: string

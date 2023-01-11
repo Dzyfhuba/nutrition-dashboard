@@ -16,7 +16,7 @@ export default class extends BaseSeeder {
         )
         .map((month) => {
           return {
-            person_id: person.id,
+            personNormalizedId: person.normalizedId,
             weight: faker.datatype.number({ min: 2.3, max: 10.8 }),
             height: faker.datatype.number({ min: 48.7, max: 74.55 }),
             zScore1: faker.datatype.number({ min: -3, max: 3 }),

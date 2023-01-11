@@ -5,12 +5,15 @@ import { DateTime } from 'luxon'
 
 export default class NutritionsController {
   public async index({ response, request }: HttpContextContract) {
-    const { personId } = request.qs()
+    const { personNormalizedId } = request.qs()
     try {
       let nutritions
 
-      if (personId) {
-        const nutritions1 = await Nutrition.query().where('person_id', personId)
+      if (personNormalizedId) {
+        const nutritions1 = await Nutrition.query().where(
+          'person_normalized_id',
+          personNormalizedId
+        )
 
         nutritions = nutritions1
           .map((item) => {
@@ -52,7 +55,7 @@ export default class NutritionsController {
 
   public async show({ response, request }: HttpContextContract) {
     try {
-      const nutrition = await Nutrition.findOrFail(request.param('id'))
+      const nutrition = await Nutrition.findByOrFail('person_normalized_id', request.param('id'))
 
       return response.ok(nutrition)
     } catch (error) {
