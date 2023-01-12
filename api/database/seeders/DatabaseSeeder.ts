@@ -1,5 +1,4 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import PersonFactory from 'Database/factories/PersonFactory'
 import NutritionSeeder from './NutritionSeeder'
 import PersonSeeder from './PersonSeeder'
 

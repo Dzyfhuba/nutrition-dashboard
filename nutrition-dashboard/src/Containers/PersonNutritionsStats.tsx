@@ -132,18 +132,18 @@ const PersonNutritionsStats = (props: Props) => {
                   <td className='border border-slate-500 p-1'>
                     {
                       nutrition.zScore1 > 2 ? 
-                        'gemuk' : (nutrition.zScore1 > -2 ? 
-                          'normal' : (nutrition.zScore1 > -3 ? 
-                            'kurus' : 'sangat kurus'))
+                        'gizi lebih' : (nutrition.zScore1 > -2 ? 
+                          'gizi baik' : (nutrition.zScore1 > -3 ? 
+                            'gizi kurang' : 'gizi buruk'))
                     }
                   </td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore2}</td>
                   <td className='border border-slate-500 p-1'>
                     {
                       nutrition.zScore2 > 2 ? 
-                        'gizi lebih' : (nutrition.zScore2 > -2 ? 
-                          'gizi baik' : (nutrition.zScore2 > -3 ? 
-                            'gizi kurang' : 'gizi buruk'))
+                        'gemuk' : (nutrition.zScore2 > -2 ? 
+                          'normal' : (nutrition.zScore2 > -3 ? 
+                            'kurus' : 'sangat kurus'))
                     }
                   </td>
                   <td className='border border-slate-500 p-1'>{nutrition.zScore3}</td>
